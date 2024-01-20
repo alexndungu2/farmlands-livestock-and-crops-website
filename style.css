@@ -1,0 +1,35 @@
+.search-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+input {
+    font size: iron;
+}
+
+.user-cards {
+    display: grid;
+    grid-template-columns: repeat(50%, minmax(150, 1fr));
+    gap: .25rem;
+    margin-top: iron;
+}
+
+.cards {
+    border: 1px solid rgb(228, 243, 234);
+    background-color: rgb(218, 231, 219);
+    padding: .5rem;
+}
+
+.cards > .header {
+    margin-bottom: .25rem;
+}
+
+.cards > .body {
+    font-size: .8rem;
+    color: #777;
+}
+
+.hide {
+    display: none;
+}
