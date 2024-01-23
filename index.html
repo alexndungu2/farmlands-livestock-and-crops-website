@@ -131,7 +131,11 @@
             max-width: 30%;
             height: auto;
             margin-top: 10px;
+            display: block; /* Ensures the margin auto works */
+            margin-left: auto;
+            margin-right: auto;
         }
+
 
         p {
             margin-top: 10px;
@@ -150,16 +154,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function showSection(sectionId) {
     var sections = ["home-info", "about-info", "services-info", "contact-info"];
-    
+
+    // Set default section to "home-info" if no sectionId is provided
+    sectionId = sectionId || "home-info";
+
     sections.forEach(function (section) {
         var currentSection = document.getElementById(section);
-        
-        // Hide all sections except the selected one
-        if (section !== sectionId) {
-            currentSection.style.display = "none";
-        } else {
-            currentSection.style.display = "block";
-        }
+
+        // Set display based on whether it's the selected section or not
+        currentSection.style.display = section === sectionId ? "block" : "none";
     });
 }
 
@@ -209,16 +212,25 @@ function showCropsCategory() {
     } else if (selectedSubCategory === "agrochemicals") {
         agrochemicalsSelector.style.display = "block";
         // Assuming showAgrochemicalsCategory is defined, call it here
-        showAgrochemicalsCategory();
+        showAgrochemicalsSubCategory();
     } else if (selectedSubCategory === "fertilizers") {
         fertilizersSelector.style.display = "block";
     }
 }
 
-function showAgrochemicalsCategory() {
-    var selectedSubCategory = $("#agrochemicals-selector").val();
-    $("#insecticides-info").toggle(selectedSubCategory === "insecticides");
-    $("#fungicides-info").toggle(selectedSubCategory === "fungicides");
+function showAgrochemicalsSubCategory() {
+    var selectedSubCategory = document.getElementById("agrochemicals-selector").value;
+    var insecticidesSelector = document.getElementById("insecticides-info")
+    var fungicidesSelector = document.getElementById("fungicides-info")
+
+    insecticidesSelector.style.display = "none";
+    fungicidesSelector.style.display = "none";
+
+    if (selectedSubCategory === "insecticides") {
+        insecticidesSelector.style.display = "block";
+    } else if (selectedSubCategory === "fungicides") {
+        fungicidesSelector.style.display = "block";
+    }
 }
 
 
@@ -333,7 +345,7 @@ function showAgrochemicalsCategory() {
             </select>
             <div id="seeds-info">
                 <h3>Seeds Information</h3>
-                <div id="collards-info" class="product-category seeds-category collards-info">
+                <div id="collards-info" class="product-category">
                     <h4>Collards information</h4>
                     <p>Description for Collards:</p>
                     <img src='https://i.imgur.com/fMerKxr.png' alt='Collards Image'>
@@ -361,15 +373,15 @@ function showAgrochemicalsCategory() {
                 </div>
             </div>
 
-            <div id="agrochemicals-info" class="product-category agrochemicals-category">
+            <div id="agrochemicals-info" class="product-category">
                 <h3>Agrochemicals Information</h3>
                 <label for="agrochemicals-selector">Select a category:</label>
-                <select id="agrochemicals-selector" onchange="showAgrochemicalsCategory()">
+                <select id="agrochemicals-selector" onchange="showAgrochemicalsSubCategory()">
                     <option value="insecticides">Insecticides</option>
                     <option value="fungicides">Fungicides</option>
                 </select>
 
-                <div id="insecticides-category" class="insecticides-category">
+                <div id="insecticides-info" class="insecticides-info">
                     <h4>Insecticides Information</h4>
                     <div id="decisEC-info">
                         <h5>Decis (Emulsifiable Concentrate)</h5>
@@ -428,7 +440,7 @@ function showAgrochemicalsCategory() {
                     </div>
                 </div>
 
-                <div id="fungicides-info" class="fungicides-category">
+                <div id="fungicides-info" class="fungicides-info">
                     <h4>Fungicides Information</h4>
                     <div id="antracol-info">
                         <h5>Antracol WP70 500 g infromation</h5>
@@ -475,7 +487,7 @@ function showAgrochemicalsCategory() {
                 </div>
             </div>
 
-            <div id="fertilizers-info" class="fertilizers-category">
+            <div id="fertilizers-info" class="fertilizers-info">
                 <h3>Fertilizers Information</h3>
                 <div id="wuxal-info" class="product-category fertilizers-category">
                     <h4>Wuxal Macromix information</h4>
@@ -783,45 +795,51 @@ function showAgrochemicalsCategory() {
 
 
     function displayUserCards(users) {
-        userCardsContainer.innerHTML = '';
+    userCardsContainer.innerHTML = '';
 
-        users.forEach(user => {
-            const card = userCardTemplate.content.cloneNode(true);
-            card.querySelector('.header').textContent = user.name;
-            card.querySelector('.body').textContent = user.description; // Use 'description' instead of 'details'
+    users.forEach(user => {
+        const card = userCardTemplate.content.cloneNode(true);
+        card.querySelector('.header').textContent = user.name;
+        card.querySelector('.body').textContent = user.description; // Use 'description' instead of 'details'
 
-            // If the user has an image (or images), display it/them
-            if (user.imageUrl) {
-                if (Array.isArray(user.imageUrl)) {
-                    // If it's an array of images, create multiple image elements
-                    user.imageUrl.forEach(imageUrl => {
-                        const imageElement = document.createElement('img');
-                        imageElement.src = imageUrl;
-                        card.querySelector('.body').appendChild(imageElement);
-                    });
-                } else {
-                    // If it's a single image, create a single image element
+        // If the user has an image (or images), display it/them
+        if (user.imageUrl) {
+            if (Array.isArray(user.imageUrl)) {
+                // If it's an array of images, create multiple image elements
+                user.imageUrl.forEach(imageUrl => {
                     const imageElement = document.createElement('img');
-                    imageElement.src = user.imageUrl;
+                    imageElement.src = imageUrl;
                     card.querySelector('.body').appendChild(imageElement);
-                }
+                });
+            } else {
+                // If it's a single image, create a single image element
+                const imageElement = document.createElement('img');
+                imageElement.src = user.imageUrl;
+                card.querySelector('.body').appendChild(imageElement);
             }
-
-            userCardsContainer.appendChild(card);
-        });
-    }
-
-    function performSearch() {
-        const searchTerm = document.getElementById('search').value.toLowerCase();
-
-        const matchingProducts = allUsers.filter(user => user.name.toLowerCase().includes(searchTerm));
-
-        if (matchingProducts.length > 0) {
-            displayUserCards(matchingProducts);
-        } else {
-            userCardsContainer.innerHTML = '<p>No matching product found.</p>';
         }
+
+        userCardsContainer.appendChild(card);
+    });
+}
+
+function performSearch() {
+    const searchTerm = document.getElementById('search').value.trim().toLowerCase();
+
+    if (searchTerm === "") {
+        // No search input, do nothing
+        userCardsContainer.innerHTML = '';
+        return;
     }
+
+    const matchingProducts = allUsers.filter(user => user.name.toLowerCase().includes(searchTerm));
+
+    if (matchingProducts.length > 0) {
+        displayUserCards(matchingProducts);
+    } else {
+        userCardsContainer.innerHTML = '<p>No matching product found.</p>';
+    }
+}
 
 </script>
 
