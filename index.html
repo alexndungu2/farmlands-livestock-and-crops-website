@@ -118,8 +118,14 @@
             margin-top: 20px;
         }
 
-        h3, h4, h5 {
+        h3 {
             color: green;
+        }
+        h4 {
+            color: green;
+        }
+        h5 {
+            color: yellowgreen;
         }
 
         select {
@@ -220,8 +226,8 @@ function showCropsCategory() {
 
 function showAgrochemicalsSubCategory() {
     var selectedSubCategory = document.getElementById("agrochemicals-selector").value;
-    var insecticidesSelector = document.getElementById("insecticides-info")
-    var fungicidesSelector = document.getElementById("fungicides-info")
+    var insecticidesSelector = document.getElementById("insecticides-info");
+    var fungicidesSelector = document.getElementById("fungicides-info");
 
     insecticidesSelector.style.display = "none";
     fungicidesSelector.style.display = "none";
@@ -233,8 +239,72 @@ function showAgrochemicalsSubCategory() {
     }
 }
 
+function showSeedsCategory() {
+    // Fetch and display information for the seeds category
+    var collardsInfo = document.getElementById("collards-info");
+    var dek8031Info = document.getElementById("dek8031-info");
+    var pusaSawaniInfo = document.getElementById("pusaSawani-info");
+    var onionRedCreoleInfo = document.getElementById("onionRedCreole-info");
+    var omniInfo = document.getElementById("omni-info");
 
+    // Example data (replace with actual data from your database)
+    var collardsAvailability = "In stock";
+    var dek8031Availability = "Out of stock";
+    var pusaSawaniAvailability = "In stock";
+    var onionRedCreoleAvailability = "In stock";
+    var omniAvailability = "Out of stock";
 
+    var collardsPrice = "$5.00";
+    var dek8031Price = "$10.00";
+    var pusaSawaniPrice = "$7.50";
+    var onionRedCreolePrice = "$6.00";
+    var omniPrice = "$12.00";
+
+    var collardsPaymentMethods = "Credit Card, PayPal, Mpesa";
+    var dek8031PaymentMethods = "Credit Card";
+    var pusaSawaniPaymentMethods = "Credit Card, Bank Transfer";
+    var onionRedCreolePaymentMethods = "PayPal";
+    var omniPaymentMethods = "Credit Card, Bitcoin, Mpesa";
+
+    // Display availability, price, and payment information
+    document.getElementById("Availability-collards").textContent = "Availability: " + collardsAvailability;
+    document.getElementById("Price-collards").textContent = "Price: " + collardsPrice;
+    document.getElementById("Payment-Methods-collards").textContent = "Payment Methods: " + collardsPaymentMethods;
+
+    document.getElementById("Availability-dek8031").textContent = "Availability: " + dek8031Availability;
+    document.getElementById("Price-dek8031").textContent = "Price: " + dek8031Price;
+    document.getElementById("Payment-Methods-dek8031").textContent = "Payment Methods: " + dek8031PaymentMethods;
+
+    document.getElementById("Availability-pusaSawani").textContent = "Availability: " + pusaSawaniAvailability;
+    document.getElementById("Price-pusaSawani").textContent = "Price: " + pusaSawaniPrice;
+    document.getElementById("Payment-Methods-pusaSawani").textContent = "Payment Methods: " + pusaSawaniPaymentMethods;
+
+    document.getElementById("Availability-onionRedCreole").textContent = "Availability: " + onionRedCreoleAvailability;
+    document.getElementById("Price-onionRedCreole").textContent = "Price: " + onionRedCreolePrice;
+    document.getElementById("Payment-Methods-onionRedCreole").textContent = "Payment Methods: " + onionRedCreolePaymentMethods;
+
+    document.getElementById("Availability-omni").textContent = "Availability: " + omniAvailability;
+    document.getElementById("Price-omni").textContent = "Price: " + omniPrice;
+    document.getElementById("Payment-Methods-omni").textContent = "Payment Methods: " + omniPaymentMethods;
+
+    // Additional logic if needed for other information
+
+    // Example: You can set different styles based on availability
+    setAvailabilityStyle(collardsInfo, collardsAvailability);
+    setAvailabilityStyle(dek8031Info, dek8031Availability);
+    setAvailabilityStyle(pusaSawaniInfo, pusaSawaniAvailability);
+    setAvailabilityStyle(onionRedCreoleInfo, onionRedCreoleAvailability);
+    setAvailabilityStyle(omniInfo, omniAvailability);
+}
+
+function setAvailabilityStyle(element, availability) {
+    // Example: Set a specific style based on availability
+    if (availability.toLowerCase() === "in stock") {
+        element.style.border = "2px solid green";
+    } else if (availability.toLowerCase() === "out of stock") {
+        element.style.border = "2px solid red";
+    }
+}
 
 </script>
 </head>
@@ -287,12 +357,12 @@ function showAgrochemicalsSubCategory() {
 
         <div class="product-category">
             <h4>Seeds</h4>
-            <p>Explore our high-quality seeds selection, including varieties of crops such as collards, DEKALB, Royalseed, Simlaw Seeds and omni(egg-plant black beauty). We provide top-notch seeds to enhance your crop production.</p>
+            <p>Explore our high-quality seeds selection, including varieties of crops such as collards, DEKALB, Royalseed, and Simlaw Seeds. We provide top-notch seeds to enhance your crop production.</p>
         </div>
 
         <div class="product-category">
             <h4>Agrochemicals</h4>
-            <p>Our agrochemicals are designed to protect and nourish your crops. Choose from our selection of fungicides and insecticides to ensure the health and vitality of your plants.</p>
+            <p>Our agrochemicals are designed to protect and nourish your crops. Choose from our selection of fungicides, insecticides, and fertilizers to ensure the health and vitality of your plants.</p>
 
             <div class="crops-category">
                 <h5>Fungicides</h5>
@@ -315,7 +385,7 @@ function showAgrochemicalsSubCategory() {
 
 <section id="services-info">
     <h2>Services</h2>
-    <p>We provide crop seeds, agrochemicals and fertilizers</p>
+    <p>We provide crop seeds, agrochemicals, and fertilizers</p>
     <p>Our products:</p>
     <ul>
         <li>
@@ -349,27 +419,42 @@ function showAgrochemicalsSubCategory() {
                     <h4>Collards information</h4>
                     <p>Description for Collards:</p>
                     <img src='https://i.imgur.com/fMerKxr.png' alt='Collards Image'>
+                    <h4 id="Availability-collards">Availability: </h4>
+                    <h4 id="Price-collards">Price: </h4>
+                    <h4 id="Payment-Methods-collards">Payment Methods: </h4>
                 </div>
                 <div id="dek8031-info" class="product-category seeds-category dek8031-info">
                     <h4>Dekalb information</h4>
                     <p>Description for DEKALB seed:</p>
                     <img src='https://i.imgur.com/Viyae8A.png' alt='DEKALB Seed Image'>
                     <img src='https://i.imgur.com/gX32ezW.png' alt='DEKALB Seed Image'>
+                    <h4 id="Availability-dek8031">Availability: </h4>
+                    <h4 id="Price-dek8031">Price: </h4>
+                    <h4 id="Payment-Methods-dek8031">Payment Methods: </h4>
                 </div>
                 <div id="pusaSawani-info" class="product-category seeds-category pusaSawani-info">
                     <h4>Royalseed information</h4>
                     <p>Description for Royalseed:</p>
                     <img src='https://i.imgur.com/IHg376s.png' alt='Royalseed Image'>
+                    <h4 id="Availability-pusaSawani">Availability: </h4>
+                    <h4 id="Price-pusaSawani">Price: </h4>
+                    <h4 id="Payment-Methods-pusaSawani">Payment Methods: </h4>
                 </div>
                 <div id="onionRedCreole-info" class="product-category seeds-category onionRedCreole-info">
                     <h4>Simlaw Seeds information</h4>
                     <p>Description for Simlaw seeds:</p>
                     <img src='https://i.imgur.com/P20M8Do.png' alt='Simlaw seeds Image'>
+                    <h4 id="Availability-onionRedCreole">Availability: </h4>
+                    <h4 id="Price-onionRedCreole">Price: </h4>
+                    <h4 id="Payment-Methods-onionRedCreole">Payment Methods: </h4>
                 </div>
                 <div id="omni-info" class="product-category seeds-category omni-info">
                     <h4>OMNI agriculture LTD(EGG PLANT BLACK BEAUTY) information</h4>
                     <p>Description for OMNI agriculture LTD:</p>
                     <img src='https://i.imgur.com/nCBrNxd.jpg' alt='OMNI agriculture LTD Image'>
+                    <h4 id="Availability-omni">Availability: </h4>
+                    <h4 id="Price-omni">Price: </h4>
+                    <h4 id="Payment-Methods-omni">Payment Methods: </h4>
                 </div>
             </div>
 
@@ -537,7 +622,6 @@ function showAgrochemicalsSubCategory() {
     const userCardsContainer = document.getElementById('user-cards-container');
     const sectionId = document.getElementById('services-info');
 
-    // Sample data for illustration, replace this with your actual data
     const allUsers = [
     {
         "id": 1,
@@ -842,6 +926,91 @@ function performSearch() {
 }
 
 </script>
+<?php
+// Your PHP code here
+require __DIR__ . '/vendor/autoload.php';
+
+use Carbon\Carbon;
+
+if (isset($_GET['amount'])) {
+    stkPush($_GET['amount']);
+}
+
+function newAccessToken()
+{
+    $consumer_key = "YOUR_CONSUMER_KEY";
+    $consumer_secret = "YOUR_CONSUMER_SECRET";
+
+    $credentials = base64_encode($consumer_key . ":" . $consumer_secret);
+    $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic " . $credentials, "Content-Type:application/json"));
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $curl_response = curl_exec($curl);
+    $access_token = json_decode($curl_response);
+    curl_close($curl);
+
+    return $access_token->access_token;
+}
+
+function stkPush($amount)
+{
+    $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+
+    // Initialize cURL handle
+    $curl = curl_init();
+
+    $curl_post_data = [
+        'BusinessShortCode' => 174379,
+        'Password' => lipaNaMpesaPassword(),
+        'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
+        'TransactionType' => 'CustomerPayBillOnline',
+        'Amount' => $amount,
+        'PartyA' => "254790765441",
+        'PartyB' => 174379,
+        'PhoneNumber' => "254790765441",
+        'CallBackURL' => 'https://your-callback-url.com/callback',
+        'AccountReference' => "Simon's Tech School Payment",
+        'TransactionDesc' => "lipa Na M-PESA"
+    ];
+
+    $data_string = json_encode($curl_post_data);
+
+    // Set cURL options
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization:Bearer ' . newAccessToken()));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+
+    // Execute cURL request
+    $curl_response = curl_exec($curl);
+    print_r($curl_response);
+
+    // Close cURL handle
+    curl_close($curl);
+}
+
+function lipaNaMpesaPassword()
+{
+    // timestamp
+    $timestamp = Carbon::rawParse('now')->format('YmdHms');
+    // passkey
+    $passKey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+    $businessShortCode = 174379;
+    // generate password
+    $mpesaPassword = base64_encode($businessShortCode . $passKey . $timestamp);
+
+    return $mpesaPassword;
+}
+?>
+
+
+    <!-- More HTML content if needed -->
 
     <footer>
         <p>&copy; 2023 Farmlands Crops and Livestock</p>
