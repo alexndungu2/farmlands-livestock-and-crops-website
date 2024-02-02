@@ -927,7 +927,16 @@ function performSearch() {
 
 </script>
 <?php
-// Your PHP code here
+$ch = curl_init('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Basic ' . base64_encode('YOUR_APP_CONSUMER_KEY:YOUR_APP_CONSUMER_SECRET')
+]);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$response = curl_exec($ch);
+echo json_decode($response);
+?>
+
+<?php
 require __DIR__ . '/vendor/autoload.php';
 
 use Carbon\Carbon;
@@ -1009,8 +1018,6 @@ function lipaNaMpesaPassword()
 }
 ?>
 
-
-    <!-- More HTML content if needed -->
 
     <footer>
         <p>&copy; 2023 Farmlands Crops and Livestock</p>
